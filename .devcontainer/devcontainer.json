@@ -1,0 +1,16 @@
+{
+  "name": "CloudFormation",
+  "dockerFile": "../Dockerfile",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "amazonwebservices.aws-toolkit-vscode",
+        "aws-scripting-guy.cform",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "remoteUser": "formation"
+}

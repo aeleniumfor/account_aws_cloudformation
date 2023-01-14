@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  EnableBudgetAmount:
+    Type: Number
+    Description: "Amount"
+    Default: "100"
+  EnableBudgetEmail:
+    Type: String
+    Description: "Send Email"
+
+Resources:
+  EnableBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetLimit:
+          Amount: !Ref EnableBudgetAmount
+          Unit: USD
+        BudgetType: COST
+        BudgetName: "Monthly usage"
+        TimeUnit: MONTHLY
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail

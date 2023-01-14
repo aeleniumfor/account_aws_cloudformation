@@ -4,7 +4,7 @@ Parameters:
   EnableBudgetAmount:
     Type: Number
     Description: "Amount"
-    Default: "100"
+    Default: "50"
   EnableBudgetEmail:
     Type: String
     Description: "Send Email"
@@ -28,3 +28,18 @@ Resources:
           Subscribers:
             - SubscriptionType: EMAIL
               Address: !Ref EnableBudgetEmail
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 40
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 2
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail
+          

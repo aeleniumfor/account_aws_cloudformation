@@ -4,7 +4,6 @@ Parameters:
   EnableBudgetAmount:
     Type: Number
     Description: "Amount"
-    Default: "50"
   EnableBudgetEmail:
     Type: String
     Description: "Send Email"
@@ -14,11 +13,12 @@ Resources:
     Type: AWS::Budgets::Budget
     Properties:
       Budget:
+        BudgetName: !Sub "${AWS::AccountId}-Monthly usage"
         BudgetLimit:
           Amount: !Ref EnableBudgetAmount
           Unit: USD
         BudgetType: COST
-        BudgetName: "Monthly usage"
+        
         TimeUnit: MONTHLY
       NotificationsWithSubscribers:
         - Notification:

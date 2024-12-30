@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: "2010-09-09"
+# https://github.com/aeleniumfor/account_aws_cloudformation/blob/main/cloud_formation.yaml
+
+Parameters:
+  EnableBudgetAmount:
+    Type: Number
+    Description: "The monthly budget limit in USD. Specify the maximum cost you want to allow for the AWS account."
+  EnableBudgetEmail:
+    Type: String
+    Description: "The email address to receive budget threshold notifications."
+
+Resources:
+  EnableBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub "${AWS::AccountId}-Monthly usage"
+        BudgetLimit:
+          Amount: !Ref EnableBudgetAmount
+          Unit: USD
+        BudgetType: COST
+        TimeUnit: MONTHLY
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 40
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 2
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref EnableBudgetEmail
+          
